@@ -41,15 +41,8 @@ classifier = randomForest(x = training_set[-3],
 
 
 #Here we are predicting the Test set results
-#This is a different y_pred than what we've seen before
-#It has two columns, the columns add up to one in each row
-#First column is a probability that the user DOES NOT buy the car based on social network ads
-#The second column is a probability that the user does buy the car based on social network ads
 y_pred = predict(classifier, newdata = test_set[-3])
 
-#Here we are redoing y_pred so we can get one single value
-#Type = class helps us with the conversion
-y_pred = predict(classifier, newdata = test_set[-3], type = 'class')
 
 #Here we are making the Confusion Matrix
 cm = table(test_set[, 3], y_pred)
@@ -63,8 +56,7 @@ X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
 X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
 grid_set = expand.grid(X1, X2)
 colnames(grid_set) = c('Age', 'EstimatedSalary')
-#Like above with y_pred above, we need to add type = class
-y_grid = predict(classifier, newdata = grid_set, type = 'class')
+y_grid = predict(classifier, newdata = grid_set)
 plot(set[, -3],
      main = 'RFC (Training set)',
      xlab = 'Age', ylab = 'Estimated Salary',
@@ -83,8 +75,7 @@ X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
 X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
 grid_set = expand.grid(X1, X2)
 colnames(grid_set) = c('Age', 'EstimatedSalary')
-#Like above with y_pred above, we need to add type = class
-y_grid = predict(classifier, newdata = grid_set, type = 'class')
+y_grid = predict(classifier, newdata = grid_set)
 plot(set[, -3], main = 'RFC (Test set)',
      xlab = 'Age', ylab = 'Estimated Salary',
      xlim = range(X1), ylim = range(X2))
